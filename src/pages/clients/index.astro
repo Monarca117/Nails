@@ -2,28 +2,15 @@
 // Importaciones
 import Layout from '../../layouts/Layout.astro';
 import './src/styles/global.css';
-import { turso } from '../../turso.js';
-
-// Obtener los datos de la base de datos
-const { rows } = await turso.execute('SELECT * FROM Clientes');
+import ClientsTable from '../../components/tables/clientsTable.astro';
 ---
 
 <Layout>
   <div class="flex flex-col justify-center items-center margin-top-50">
     <h1 class="font-bold text-4xl mb-8">Lista de Clientes</h1>
-
-    <ul class="w-full max-w-2xl bg-white shadow-md rounded-lg p-6">
-      {rows.map((cliente) => (
-        <li key={cliente.id_Clientes} class="border-b border-gray-200 py-4">
-          <p class="text-lg font-semibold text-black">
-            {cliente.nombre_Cliente} {cliente.apellido_Paterno} {cliente.apellido_Materno}
-          </p>
-          <p class="text-gray-600">{cliente.correo}</p>
-          <p class="text-gray-600">{cliente.telefono}</p>
-        </li>
-      ))}
-    </ul>
-
+    <div class="w-full max-w-screen-4xl px-32 ml-63"> <!-- Contenedor ajustado -->
+      <ClientsTable></ClientsTable>
+    </div>
     <button
       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">
       <a href="clients/add">Agregar</a>

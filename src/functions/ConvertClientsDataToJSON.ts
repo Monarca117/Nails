@@ -1,6 +1,6 @@
 import type { ConvertedClientData } from "../types/ClientsData";
 
-export function convertUserDataToJSON(data: DBData): ConvertedClientData[] {
+export function convertClientsDataToJSON(data: DBData): ConvertedClientData[] {
     return data.rows.map((row: (string | number | Date | null)[]) => {
       return {
         id_Cliente: Number(row[0]),
