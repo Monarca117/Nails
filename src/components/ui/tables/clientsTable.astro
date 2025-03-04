@@ -10,6 +10,7 @@
     <table class="min-w-full align-middle text-sm whitespace-nowrap">
       <thead>
         <tr class="border-y border-neutral-600">
+          <th class="px-4 py-4 text-start font-semibold text-neutral-900">Id Cliente</th>
           <th class="px-4 py-4 text-start font-semibold text-neutral-900">Nombre</th>
           <th class="px-4 py-4 text-start font-semibold text-neutral-900">Apellido Paterno</th>
           <th class="px-4 py-4 text-start font-semibold text-neutral-900">Correo</th>
@@ -20,6 +21,7 @@
       <tbody>
         {rows.map((cliente) => (
           <tr class="border-b border-neutral-300 hover:bg-amber-50">
+            <td class="p-4">{cliente.id_Cliente}</td>
             <td class="p-4">{cliente.nombre_Cliente}</td>
             <td class="p-4">{cliente.apellido_Cliente}</td>
             <td class="p-4">{cliente.correo}</td>
