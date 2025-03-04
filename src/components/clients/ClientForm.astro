@@ -1,82 +1,58 @@
 ---
+import Form from "../ui/Forms/Form.astro";
+import FormInput from "../ui/Forms/FormInput.astro";
 import { convertClientsDataToJSON } from "../../functions/ConvertClientsDataToJSON";
 import { turso } from "../../turso";
-
-const path = Astro.url.pathname.replace(/\/$/, ""); // Elimina el "/" al final si existe.
-const previousPath = path.substring(0, path.lastIndexOf("/")) || "/";
-
-interface Props {
-  selectedClient?: any;
-}
-
-const {selectedClient} = Astro.props;
-
-let id_Cliente = "";
-let clientData;
-let result;
-
-clientData = await turso.execute("SELECT * FROM Clientes")
-
-const data = clientData.toJSON()
-
-if (!selectedClient) {
-  result = convertClientsDataToJSON(data)
-}
-else  {
-  result = convertClientsDataToJSON(data).filter((p) => p.id_Cliente !== selectedClient.supplierID); 
-}
-
-console.log(result);
+// Obtener datos de clientes desde la base de datos
+let clientData = await turso.execute("SELECT * FROM Clientes");
+const data = clientData.toJSON();
+const result = convertClientsDataToJSON(data);
 ---
-<form action="/api/add-client" method="POST" class="w-full max-w-2xl bg-white shadow-md rounded-lg p-6">
-    <div class="mb-4">
-      <label for="nombre" class="block text-gray-700 font-semibold mb-2">Nombre:</label>
-      <input
+
+<Form title="Agregar Nuevo Cliente">
+  <div class="grid grid-cols-2 gap-4">
+    <!-- Primera columna -->
+    <div class="flex flex-col">
+      <!-- Nombre del Cliente -->
+      <FormInput
         type="text"
-        id="nombre"
-        name="nombre"
-        required
-        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+        name="nombre_Cliente"
+        title="Nombre"
+        placeholder="Nombre"
+        isRequired
       />
-    </div>
 
-    <div class="mb-4">
-      <label for="apellido_paterno" class="block text-gray-700 font-semibold mb-2">Apellido Paterno:</label>
-      <input
+      <!-- Apellido del Cliente -->
+      <FormInput
         type="text"
-        id="apellido_paterno"
-        name="apellido_paterno"
-        required
-        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+        name="apellido_Cliente"
+        title="Apellido"
+        placeholder="Apellido"
+        isRequired
       />
     </div>
 
-    <div class="mb-4">
-      <label for="correo" class="block text-gray-700 font-semibold mb-2">Correo:</label>
-      <input
-        type="email"
-        id="correo"
-        name="correo"
-        required
-        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-      />
-    </div>
-
-    <div class="mb-4">
-      <label for="telefono" class="block text-gray-700 font-semibold mb-2">Teléfono:</label>
-      <input
-        type="tel"
-        id="telefono"
+    <!-- Segunda columna -->
+    <div class="flex flex-col">
+      <!-- Teléfono -->
+      <FormInput
+        type="text"
         name="telefono"
-        required
-        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+        title="Teléfono"
+        placeholder="Teléfono"
+        isRequired
+      />
+
+      <!-- Correo Electrónico -->
+      <FormInput
+        type="email"
+        name="correo"
+        title="Correo Electrónico"
+        placeholder="Correo Electrónico"
+        isRequired
       />
     </div>
+  </div>
 
-    <button
-      type="submit"
-      class="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    >
-      Agregar Cliente
-    </button>
-  </form>
+  <slot />
+</Form>
