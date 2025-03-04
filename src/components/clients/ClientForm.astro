@@ -1,5 +1,6 @@
 ---
 import Form from "../ui/Forms/Form.astro";
+import SubmitBtn from "../ui/Buttons/SubmitBtn.astro";
 import FormInput from "../ui/Forms/FormInput.astro";
 import { convertClientsDataToJSON } from "../../functions/ConvertClientsDataToJSON";
 import { turso } from "../../turso";
@@ -9,50 +10,53 @@ const data = clientData.toJSON();
 const result = convertClientsDataToJSON(data);
 ---
 
-<Form title="Agregar Nuevo Cliente">
-  <div class="grid grid-cols-2 gap-4">
-    <!-- Primera columna -->
-    <div class="flex flex-col">
-      <!-- Nombre del Cliente -->
-      <FormInput
-        type="text"
-        name="nombre_Cliente"
-        title="Nombre"
-        placeholder="Nombre"
-        isRequired
-      />
+<div class="flex justify-center items-center min-h-screen ">
+  <Form title="Agregar Nuevo Cliente" >
+    <div class="grid grid-cols-2 gap-6">
+      <!-- Primera columna -->
+      <div class="flex flex-col space-y-4">
+        <FormInput
+          type="text"
+          name="nombre_Cliente"
+          title="Nombre"  
+          placeholder="Nombre"
+          isRequired
+        />
 
-      <!-- Apellido del Cliente -->
-      <FormInput
-        type="text"
-        name="apellido_Cliente"
-        title="Apellido"
-        placeholder="Apellido"
-        isRequired
-      />
+        <FormInput
+          type="text"
+          name="apellido_Cliente"
+          title="Apellido"
+          placeholder="Apellido"
+          isRequired
+        />
+      </div>
+
+      <!-- Segunda columna -->
+      <div class="flex flex-col space-y-4">
+        <FormInput
+          type="text"
+          name="telefono"
+          title="Teléfono"
+          placeholder="Teléfono"
+          isRequired
+        />
+
+        <FormInput
+          type="email"
+          name="correo"
+          title="Correo Electrónico"
+          placeholder="Correo Electrónico"
+          isRequired
+        />
+      </div>
     </div>
 
-    <!-- Segunda columna -->
-    <div class="flex flex-col">
-      <!-- Teléfono -->
-      <FormInput
-        type="text"
-        name="telefono"
-        title="Teléfono"
-        placeholder="Teléfono"
-        isRequired
-      />
-
-      <!-- Correo Electrónico -->
-      <FormInput
-        type="email"
-        name="correo"
-        title="Correo Electrónico"
-        placeholder="Correo Electrónico"
-        isRequired
-      />
+    <!-- Botón de enviar -->
+    <div class="mt-8 flex justify-end">
+      <SubmitBtn class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200">
+        Guardar Cliente
+      </SubmitBtn>
     </div>
-  </div>
-
-  <slot />
-</Form>
+  </Form>
+</div>
