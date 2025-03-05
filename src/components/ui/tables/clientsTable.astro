@@ -1,25 +1,40 @@
-  ---
-  import { turso } from "../../../turso";
+---
+import { convertClientsDataToJSON } from "../../../functions/ConvertClientsDataToJSON";
+import { turso } from "../../../turso";
 
-  // Obtener los datos de la base de datos
-  const { rows } = await turso.execute('SELECT * FROM Clientes');
-  ---
+// Obtener los datos de la base de datos
+const rows = await turso.execute("SELECT * FROM Clientes");
+const result = convertClientsDataToJSON(rows.toJSON());
+---
 
-  <!-- Tabla personalizada -->
-  <div class="min-w-full overflow-x-auto">
-    <table class="min-w-full align-middle text-sm whitespace-nowrap">
-      <thead>
-        <tr class="border-y border-neutral-600">
-          <th class="px-4 py-4 text-start font-semibold text-neutral-900">Id Cliente</th>
-          <th class="px-4 py-4 text-start font-semibold text-neutral-900">Nombre</th>
-          <th class="px-4 py-4 text-start font-semibold text-neutral-900">Apellido Paterno</th>
-          <th class="px-4 py-4 text-start font-semibold text-neutral-900">Correo</th>
-          <th class="px-4 py-4 text-start font-semibold text-neutral-900">Teléfono</th>
-          <th class="px-4 py-4 text-end font-semibold text-neutral-900">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((cliente) => (
+<!-- Tabla personalizada -->
+<div class="min-w-full overflow-x-auto">
+  <table class="min-w-full align-middle text-sm whitespace-nowrap">
+    <thead>
+      <tr class="border-y border-neutral-600">
+        <th class="px-4 py-4 text-start font-semibold text-neutral-900"
+          >Id Cliente</th
+        >
+        <th class="px-4 py-4 text-start font-semibold text-neutral-900"
+          >Nombre</th
+        >
+        <th class="px-4 py-4 text-start font-semibold text-neutral-900"
+          >Apellido Paterno</th
+        >
+        <th class="px-4 py-4 text-start font-semibold text-neutral-900"
+          >Correo</th
+        >
+        <th class="px-4 py-4 text-start font-semibold text-neutral-900"
+          >Teléfono</th
+        >
+        <th class="px-4 py-4 text-end font-semibold text-neutral-900"
+          >Acciones</th
+        >
+      </tr>
+    </thead>
+    <tbody>
+      {
+        result.map((cliente) => (
           <tr class="border-b border-neutral-300 hover:bg-amber-50">
             <td class="p-4">{cliente.id_Cliente}</td>
             <td class="p-4">{cliente.nombre_Cliente}</td>
@@ -35,33 +50,33 @@
               </button>
             </td>
           </tr>
-        ))}
-      </tbody>
-    </table>
-    <div class="flex items-center justify-between p-4 text-center">
-      <div class="text-sm text-neutral-700">
-        <strong class="font-semibold">{rows.length}</strong> of
-        <strong class="font-semibold">{rows.length}</strong> clientes
-      </div>
-      <button
-        type="button"
-        class="inline-flex items-center justify-center gap-1 rounded-sm border border-neutral-600 px-3 py-1.5 text-sm leading-5 font-semibold text-black hover:border-black hover:bg-amber-100 active:bg-amber-50"
-      >
-        <svg
-          class="hi-mini hi-arrow-down inline-block size-5 opacity-50"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z"
-            clip-rule="evenodd"
-          />
-        </svg>
-        <span>Cargar más...</span>
-      </button>
+        ))
+      }
+    </tbody>
+  </table>
+  <div class="flex items-center justify-between p-4 text-center">
+    <div class="text-sm text-neutral-700">
+      <strong class="font-semibold">{result.length}</strong> of
+      <strong class="font-semibold">{result.length}</strong> clientes
     </div>
+    <button
+      type="button"
+      class="inline-flex items-center justify-center gap-1 rounded-sm border border-neutral-600 px-3 py-1.5 text-sm leading-5 font-semibold text-black hover:border-black hover:bg-amber-100 active:bg-amber-50"
+    >
+      <svg
+        class="hi-mini hi-arrow-down inline-block size-5 opacity-50"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z"
+          clip-rule="evenodd"></path>
+      </svg>
+      <span>Cargar más...</span>
+    </button>
   </div>
-  <!-- Fin de la tabla personalizada -->
+</div>
+<!-- Fin de la tabla personalizada -->
