@@ -6,13 +6,13 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<form 
-  class="max-w-full mx-auto p-8 grid grid-cols-2 md:grid-cols-1 gap-4 
+<form
+  class="max-w-full mx-auto p-8 grid grid-cols-2 md:grid-cols-1 gap-4
          border-4 border-blue-200 rounded-2xl shadow-xl
          hover:shadow-2xl transition-all duration-300
          dark:border-blue-800/30 dark:shadow-xl dark:hover:border-blue-600
          backdrop-blur-sm hover:scale-[1.005]"
   method="post"
 >
-  <slot/>
+  <slot />
 </form>

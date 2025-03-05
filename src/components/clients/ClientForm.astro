@@ -2,14 +2,7 @@
 import Form from "../ui/Forms/Form.astro";
 import SubmitBtn from "../ui/Buttons/SubmitBtn.astro";
 import FormInput from "../ui/Forms/FormInput.astro";
-import { convertClientsDataToJSON } from "../../functions/ConvertClientsDataToJSON";
-import { turso } from "../../turso";
-// Obtener datos de clientes desde la base de datos
-let clientData = await turso.execute("SELECT * FROM Clientes");
-const data = clientData.toJSON();
-const result = convertClientsDataToJSON(data);
 ---
-
 <div class="flex justify-center items-center min-h-screen ">
   <Form title="Agregar Nuevo Cliente" >
     <div class="grid grid-cols-2 gap-6">
